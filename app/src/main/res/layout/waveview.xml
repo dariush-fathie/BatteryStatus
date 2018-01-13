@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/back">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+
+            <me.itangqi.waveloadingview.WaveLoadingView
+                android:id="@+id/waveLoadingView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="3"
+                android:gravity="center"
+                app:wlv_borderColor="#ececec"
+                app:wlv_borderWidth="1dp"
+                app:wlv_progressValue="0"
+                app:wlv_shapeType="circle"
+                app:wlv_titleBottom="باتری"
+                app:wlv_titleBottomColor="#ffffff"
+                app:wlv_titleBottomSize="14sp"
+                app:wlv_titleCenterColor="@color/boldtext"
+                app:wlv_titleCenterSize="24sp"
+                app:wlv_waveAmplitude="5"
+                app:wlv_titleTopColor="#fff"
+                app:wlv_titleTopSize="13sp"
+                app:wlv_waveColor="@color/highLev" />
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/temperature_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="33 °C"
+                        android:textAllCaps="true"
+                        android:textColor="#ffffff"
+                        android:textSize="17sp"
+                        app:textAllCaps="true" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/temperature_tv_r"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="5dp"
+                        android:text="دما"
+                        android:textColor="@color/text"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#c3ababab" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/health_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="نرمال"
+                        android:textAllCaps="true"
+                        android:textColor="#ffffff"
+                        android:textSize="17sp"
+                        app:textAllCaps="true" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/health_tv_r"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="5dp"
+                        android:text="وضعیت"
+                        android:textColor="@color/text"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#c3ababab" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/volt_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="4.03 v"
+                        android:textAllCaps="true"
+                        android:textColor="#fff"
+                        android:textSize="17sp"
+                        app:textAllCaps="true" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/volt_tv_r"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="5dp"
+                        android:text="ولتاژ"
+                        android:textColor="@color/text"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:padding="7.5dp"
+                    android:id="@+id/more_tv"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/more_selctor"
+                    android:gravity="center"
+                    android:text="بیشتر"
+                    android:textColor="#fff"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:paddingEnd="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingStart="20dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:text="هشدار"
+                android:textColor="#484747"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/sc_enableAlarm"
+                android:layout_toRightOf="@+id/sc_enableAlarm"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="فعال"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="15sp" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/sc_enableAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:checked="true"
+                app:switchPadding="10dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#eceaeaea" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tone_rl"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:paddingEnd="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingStart="20dp">
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:padding="10dp"
+                android:background="@drawable/alarm_selector"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:id="@+id/tone_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="پیش فرض" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:gravity="center_vertical"
+                android:text="آهنگ هشدار"
+                android:textColor="#484747"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#eceaeaea" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:background="#ffffff"
+            android:paddingEnd="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingStart="10dp">
+
+            <ru.bullyboo.view.CircleSeekBar
+                android:id="@+id/csb1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                app:backgroundCircleLineWidth="3dp"
+                app:dotRadius="10dp"
+                app:isClockwise="true"
+                app:maxValue="60"
+                app:progressCircleLineWidth="2dp"
+                app:showCounter="false"
+                app:value="28">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/x"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_volume" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/x"
+                        android:layout_centerHorizontal="true"
+                        android:padding="3dp"
+                        android:text="میزان صدا"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+            </ru.bullyboo.view.CircleSeekBar>
+
+            <ru.bullyboo.view.CircleSeekBar
+                android:id="@+id/csb2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1.7"
+                app:backgroundCircleLineWidth="3dp"
+                app:dotRadius="10dp"
+                app:isClockwise="true"
+                app:maxValue="100"
+                app:progressCircleLineWidth="2dp"
+                app:showCounter="false"
+                app:value="30">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/iv_alarm"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_battery_charged" />
+
+                    <TextView
+                        android:textAllCaps="true"
+                        android:id="@+id/tv_battery_charge_percent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/iv_alarm"
+                        android:layout_centerHorizontal="true"
+                        android:padding="5dp"
+                        android:text="92 %"
+                        android:textSize="12sp"/>
+                </RelativeLayout>
+            </ru.bullyboo.view.CircleSeekBar>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

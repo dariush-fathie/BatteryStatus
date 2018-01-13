@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/alert_tag">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <me.itangqi.waveloadingview.WaveLoadingView
+            android:id="@+id/bat_progress_wv"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            app:wlv_borderColor="#ececec"
+            app:wlv_borderWidth="1dp"
+            app:wlv_progressValue="40"
+            app:wlv_shapeType="circle"
+            app:wlv_titleBottomColor="#fff"
+            app:wlv_titleBottomSize="13sp"
+            app:wlv_titleBottom="سطح باتری"
+            app:wlv_titleCenterColor="@color/cardview_dark_background"
+            app:wlv_titleCenterSize="24sp"
+            app:wlv_waveAmplitude="5"
+            app:wlv_waveColor="#d24f94fc" />
+
+        <TextView
+            android:id="@+id/comment_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bat_progress_wv"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="شارژر را جدا کنید!"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="15dp" />
+
+
+        <Button
+            android:id="@+id/stop_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/comment_tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:text="باشه" />
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>
+
