@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MediaPlayer mp = new MediaPlayer();
     AudioManager audio;
 
+
     RelativeLayout tone_rl;
     TextView volt_tv, health_tv, temperature_tv, tone_tv, tv_battery_percent, more_tv;
     SwitchCompat alarmSwitch;
