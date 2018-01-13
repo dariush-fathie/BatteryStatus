@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -31,6 +32,8 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
     NotificationManager notificationManager;
     long time = 0;
     int l = 0;
+
+
 
     public MediaPlayer getMp() {
         return mp;
@@ -55,6 +58,12 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
         int percent = shp.getBat_Lev_val();
         batStatus(intent);
 
+        try{
+            Toast.makeText(context , intent.getAction() , Toast.LENGTH_LONG).show();
+        } catch (Exception e){
+            Log.e("ERROR" , e.getMessage());
+        }
+        Log.e("ACTION" , intent.getAction());
 
         if (shp.isDarHalSharj() && shp.getAlarmEnabled()) {
 
@@ -142,7 +151,7 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
                 m = m - h * 60;
                 Log.e("remain minute", m + "");
             }
-            c = (m * 60 + h * 60) - c;
+            c = c - (m * 60 + h * 3600);
             Log.e("c remain second" , c + "");
             if (h == 0) {
                 if (m == 0) {
@@ -174,7 +183,7 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
     }
 
 
-    private void update() {
+    public void update() {
         Intent intent = new Intent();
         intent.setAction("com.bs.behrah.batterystatus.update");
         context.sendBroadcast(intent);

@@ -8,7 +8,9 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+
 public class ServiceClass extends Service {
+
 
 
 
@@ -28,15 +30,15 @@ public class ServiceClass extends Service {
         Log.e("onCreate", "onCreate");
 
         batteryInfoReceiver.setContext(getApplicationContext());
-
         IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(StaticValues.updateAction);
         intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
         intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
         intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
-
         registerReceiver(batteryInfoReceiver, intentFilter);
 
     }
+
 
     @Override
     public void onDestroy() {

@@ -23,6 +23,7 @@ import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
 import ru.bullyboo.view.CircleSeekBar;
 
 
@@ -61,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startService(i);
             Log.e("service" , "notRunning new instance");
         } else {
+            Intent intent = new Intent();
+            intent.setAction(StaticValues.updateAction);
+            sendBroadcast(intent);
             Log.e("service" , "isRunning");
         }
 
@@ -231,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 overridePendingTransition(R.anim.in, R.anim.out);
                 break;
             case R.id.more_tv:
+
                 showPopUp();
                 break;
             case R.id.waveLoadingView:
