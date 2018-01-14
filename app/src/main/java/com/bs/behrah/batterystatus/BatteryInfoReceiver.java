@@ -12,8 +12,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -23,17 +23,12 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
     SharedPre shp;
     MediaPlayer mp = new MediaPlayer();
     PendingIntent pendingIntent;
-    String contentText = "";
     Context context;
     boolean usbCharge, acCharge;
-
     int level = -1;
-    Notification n;
+    Notification.Builder n;
     NotificationManager notificationManager;
-    long time = 0;
-    int l = 0;
-
-
+    boolean ifChargeNotChanged = false; // if charge not change -> do not calculate full charge time again
 
     public MediaPlayer getMp() {
         return mp;
@@ -55,46 +50,30 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         shp = new SharedPre(context);
-        int percent = shp.getBat_Lev_val();
         batStatus(intent);
-
-        try{
-            Toast.makeText(context , intent.getAction() , Toast.LENGTH_LONG).show();
-        } catch (Exception e){
-            Log.e("ERROR" , e.getMessage());
-        }
-        Log.e("ACTION" , intent.getAction());
-
-        if (shp.isDarHalSharj() && shp.getAlarmEnabled()) {
-
+        int percent = shp.getBat_Lev_val();
+        if (shp.isDarHalSharj()) {
+            if (intent.getAction().equals(StaticValues.updateAction)) {
+                ifChargeNotChanged = false;
+            }
+            if (intent.getAction().equals(StaticValues.dismissAction)){
+                Log.e("action"  ,intent.getAction()+"");
+                shp.setNotificationForcedClosed(true);
+            }
             timeCalculate();
-
-            Intent i = new Intent(context, MainActivity.class);
-            pendingIntent = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            n = null;
-            n = new Notification.Builder(context)
-                    .setContentTitle("وضعیت باتری")
-                    .setContentText(contentText)
-                    .setContentIntent(pendingIntent)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setAutoCancel(true).build();
-
-
-            notificationManager = (NotificationManager) getContext().getSystemService(NOTIFICATION_SERVICE);
-            notificationManager.notify(15223, n);
-
-            if (shp.getContinue_() == 1) {
-
+            Log.e("Continue" , shp.getContinue_() + "");
+            Log.e("AlarmEnambled" , shp.getAlarmEnabled() + "");
+            if (shp.getContinue_() == 1 && shp.getAlarmEnabled()) {
                 if ((level == 100 || level == percent) && !getMp().isPlaying()) {
                     play();
                     alert();
                 }
-
             }
         } else {
-            l = 0;
-            time = 0 ;
+            shp.setTime(0); // clear time
+            shp.setL(0);// clear level
+            Log.e("not charging", "AAAAAAAAAAAAAA");
+            ifChargeNotChanged = false;
             shp.setContinue_(1);
             if (notificationManager != null) {
                 notificationManager.cancelAll();
@@ -102,18 +81,20 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
         }
     }
 
-    private void timeCalculate() {
+    synchronized private void timeCalculate() {
         long temp = System.currentTimeMillis();
-        Log.e("firsttime", temp + "");
-        if (l == 0) { // first time
-            l = shp.getLevel();
-            time = temp;
-            Log.e("firsttime2", l + "");
-            calculateFullChargeTime(false, true);
-        } else if (shp.getLevel() - l > 0) { // charge increased
-            long diff = temp - time;
+        Log.e("currentTime", temp + "");
+        Log.e("time", shp.getTime() + "");
+        Log.e("L", shp.getL() + "");
+        if (shp.getL() == 0) { // first time
+            shp.setTime(temp);
+            shp.setL(shp.getLevel());
+            Log.e("L set .", shp.getL() + "");
+            calculateFullChargeTime();
+        } else if (shp.getLevel() - shp.getL() > 0) { // charge increased
+            long diff = temp - shp.getTime();
             Log.e("diff ", diff + "");
-            int newTpp = (int) (diff / 1000);
+            int newTpp = (int) (diff / 1000); // convert milli to second
             Log.e("newTpp", newTpp + "");
             int tpp = shp.getTPP();
             Log.e("tpp", tpp + "");
@@ -124,62 +105,91 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
             } else {
                 shp.setTPP(newTpp);
             }
-            calculateFullChargeTime(true, false);
-            l = shp.getLevel();
-            time = temp;
-        } else if (shp.getLevel() - l < 0) { // charge decreased
-            calculateFullChargeTime(false, false);
-            l = shp.getLevel();
-            time = temp;
+            calculateFullChargeTime();
+            shp.setL(shp.getLevel());
+            shp.setTime(temp);
+        } else if (shp.getLevel() - shp.getL() == 0 && shp.getTPP() != 0 && !ifChargeNotChanged) {
+            ifChargeNotChanged = true;
+            Log.e("adsfdasdf", "sXXXXXXXXXXXXx");
+            calculateFullChargeTime();
+        } else if (shp.getLevel() - shp.getL() < 0) { // charge decreased
+            decreased();
+            shp.setL(shp.getLevel());
+            shp.setTime(temp);
         }
 
     }
 
-    private void calculateFullChargeTime(boolean increased, boolean useAverageTPP) {
-        if (increased || (shp.getTPP() != 0 && useAverageTPP)) {
+    private void calculateFullChargeTime() {
+        if (shp.getTPP() != 0) {
             int c = shp.getLevel();
             c = 100 - c;
-            Log.e("remain level : ", c + "");
             c = c * shp.getTPP();
-            Log.e("second :", c + "");
             int m = c / 60;
-            Log.e("menute", m + "");
             int h = 0;
             if (m > 60) {
                 h = m / 60;
-                Log.e("hour :", h + "");
                 m = m - h * 60;
-                Log.e("remain minute", m + "");
             }
             c = c - (m * 60 + h * 3600);
-            Log.e("c remain second" , c + "");
-            if (h == 0) {
-                if (m == 0) {
-                    shp.setTimeToFullCharge(String.valueOf(c + "s"));
-                } else {
-                    if (c != 0 && c > 0) {
-                        shp.setTimeToFullCharge(String.valueOf(m + "m:" + c + "s"));
-                    } else {
-                        shp.setTimeToFullCharge(String.valueOf(m + "m"));
-                    }
-                }
+            formatTime(h, m, c);
+        }
+    }
+
+    void formatTime(int h, int m, int s) {
+        if (h == 0) {
+            if (m == 0) {
+                shp.setTimeToFullCharge(String.valueOf(s + "s"));
             } else {
-                if (m == 0) {
-                    shp.setTimeToFullCharge(String.valueOf(h + "h:" + c + "s"));
+                if (s != 0) {
+                    shp.setTimeToFullCharge(String.valueOf(m + "m:" + s + "s"));
                 } else {
-                    if (c != 0 && c > 0) {
-                        shp.setTimeToFullCharge(String.valueOf(h + "h:" + m + "m:" + c + "s"));
-                    } else {
-                        shp.setTimeToFullCharge(String.valueOf(h + "h:" + m + "m"));
-                    }
+                    shp.setTimeToFullCharge(String.valueOf(m + "m"));
                 }
             }
-
+        } else {
+            if (m == 0) {
+                shp.setTimeToFullCharge(String.valueOf(h + "h:"));
+            } else {
+                shp.setTimeToFullCharge(String.valueOf(h + "h:" + m + "m"));
+            }
         }
-        if (!increased && !useAverageTPP) {
-            shp.setTimeToFullCharge(String.valueOf("-"));
-        }
+        updateNotification();
+    }
 
+    void updateNotification() {
+        if (!shp.getNotificationForcedClose()) {
+            if (n != null && notificationManager != null) {
+                n.setContentText(shp.getTimeToFullCharge());
+                notificationManager.notify(StaticValues.NOTIFICATION_ID, n.build());
+            } else {
+                showNotification();
+            }
+        }
+    }
+
+    void showNotification() {
+        Intent i = new Intent(getContext(), MainActivity.class);
+        pendingIntent = PendingIntent.getActivity(getContext(), 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+        n = new Notification.Builder(context)
+                .setContentTitle("Battery status")
+                .setContentText(shp.getTimeToFullCharge())
+                .setContentIntent(pendingIntent)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setAutoCancel(false).setDeleteIntent(createOnDismissedIntent(context));
+
+        notificationManager = (NotificationManager) getContext().getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(StaticValues.NOTIFICATION_ID, n.build());
+    }
+
+
+    private PendingIntent createOnDismissedIntent(Context context) {
+        Intent intent = new Intent(context, DismissListener.class);
+        return PendingIntent.getService(context, 1, intent, 0);
+    }
+
+    void decreased() {
+        shp.setTimeToFullCharge(String.valueOf("-"));
     }
 
 
@@ -232,9 +242,7 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
     }
 
     private void batStatus(Intent intent) {
-
         boolean present = intent.getBooleanExtra(BatteryManager.EXTRA_PRESENT, false);
-
         if (present) {
             int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
             int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
@@ -318,7 +326,6 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
             // LEVEL LEVEL LEVEL LEVEL
             if (rawlevel >= 0 && scale > 0) {
                 shp.setLevel(level = (rawlevel * 100) / scale);
-                contentText = "سطح : " + level + " درصد";
             }
 
             // capacity capacity capacity capacity

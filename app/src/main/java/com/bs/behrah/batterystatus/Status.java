@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.os.BatteryManager;
 import android.util.Log;
 
-/**
- * Created by unary on 1/12/2018.
- */
 
 public class Status {
     Context context ;

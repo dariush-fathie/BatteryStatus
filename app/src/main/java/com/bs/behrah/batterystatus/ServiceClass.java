@@ -32,6 +32,7 @@ public class ServiceClass extends Service {
         batteryInfoReceiver.setContext(getApplicationContext());
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(StaticValues.updateAction);
+        intentFilter.addAction(StaticValues.dismissAction);
         intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
         intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
         intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);

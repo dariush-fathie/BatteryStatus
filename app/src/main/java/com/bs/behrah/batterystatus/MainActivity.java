@@ -23,7 +23,6 @@ import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import ru.bullyboo.view.CircleSeekBar;
 
 
@@ -42,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ru.bullyboo.view.CircleSeekBar csb1, csb2;
     boolean ft = true;
     boolean START_SEEK_BAR = false;
+    boolean flag = true;
 
     public MediaPlayer getMp() {
         return mp;
@@ -52,24 +52,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onResume() {
+        if (isMyServiceRunning(ServiceClass.class)) {
+            updateRequest();
+        }
+        ABC2();
+        super.onResume();
+    }
+
+    void updateRequest() {
+        Intent intent = new Intent();
+        intent.setAction(StaticValues.updateAction);
+        sendBroadcast(intent);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(updateReceiver);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerReceiver(updateReceiver, new IntentFilter("com.bs.behrah.batterystatus.update"));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.waveview);
         ABC();
         shp.setTimeToFullCharge("");
+        shp.setNotificationForcedClosed(false);
         init();
         Intent i = new Intent(MainActivity.this, ServiceClass.class);
         if (!isMyServiceRunning(ServiceClass.class)) {
             startService(i);
-            Log.e("service" , "notRunning new instance");
-        } else {
-            Intent intent = new Intent();
-            intent.setAction(StaticValues.updateAction);
-            sendBroadcast(intent);
-            Log.e("service" , "isRunning");
+            Log.e("service", "notRunning new instance");
         }
-
-        Log.e("flow", "1");
         startReceiveUpdate();
     }
 
@@ -116,9 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         csb1.setOnValueChangedListener(new CircleSeekBar.OnValueChangedListener() {
             @Override
             public void onValueChanged(int value) {
-
                 shp.setVol_Lev_val(value);
-
                 if (START_SEEK_BAR) {
                     if (!getMp().isPlaying()) {
                         play();
@@ -127,29 +146,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
-
         csb2.setOnValueChangedListener(new CircleSeekBar.OnValueChangedListener() {
             @Override
             public void onValueChanged(int value) {
+                Log.e("ABC", "onValue");
                 shp.setBat_Lev_val(csb2.getValue());
                 tv_battery_percent.setText(String.valueOf("سطح هشدار :" + " % " + value));
+                if (flag) {
+                    shp.setContinue_(1);
+                    flag = false ;
+                } else {
+                    flag = true ;
+                }
+                Log.e("flag", flag + "");
             }
         });
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        registerReceiver(updateReceiver, new IntentFilter("com.bs.behrah.batterystatus.update"));
-    }
-
 
     private void startReceiveUpdate() {
         if (updateReceiver == null) {
             updateReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    Log.e("flow", "3");
                     if (intent.getAction().equals("com.bs.behrah.batterystatus.update")) {
                         if (ft) {
                             ft = false;
@@ -178,7 +196,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void ABC() {
         audio = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
         shp = new SharedPre(getApplicationContext());
-        shp.setContinue_(1);
     }
 
     private String getHealth(int i) {
@@ -203,11 +220,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void ABC2() {
         csb1.setMaxValue(audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC) * 4);
-
         csb2.setValue(shp.getBat_Lev_val());
         csb1.setValue(shp.getVol_Lev_val());
-
-
         if (!shp.getRingtone().equals("پیش فرض")) {
             tone_tv.setText(shp.getRingtone().substring(0, shp.getRingtone().length() - 4));
         } else {
@@ -216,17 +230,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    @Override
-    protected void onResume() {
-        ABC2();
-        super.onResume();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        unregisterReceiver(updateReceiver);
-    }
 
     @Override
     public void onClick(View view) {
@@ -236,7 +239,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 overridePendingTransition(R.anim.in, R.anim.out);
                 break;
             case R.id.more_tv:
-
                 showPopUp();
                 break;
             case R.id.waveLoadingView:
@@ -264,7 +266,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvUnknown = view.findViewById(R.id.tv_unknown);
         tvCapacity = view.findViewById(R.id.tv_capacity);
         tvTech = view.findViewById(R.id.tv_tech);
-
 
         switch (shp.getHealth()) {
             case 1:
@@ -300,10 +301,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int capacity = (int) shp.getCapacity();
         int currentLevel = shp.getLevel();
         int occupiedCapacity = (currentLevel * capacity) / 100;
-        tvCapacity.setText(String.valueOf(occupiedCapacity + " mAh " + " \\ " + capacity + " mAh "));
-
+        tvCapacity.setText(String.valueOf(occupiedCapacity + "mAh " + " \\ " + capacity + "mAh "));
         tvTech.setText(shp.getTechnology());
-
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setView(view);
         builder.setTitle(null);
@@ -328,7 +327,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             waveLoadingView.setWaveColor(getColor(R.color.lowLev));
         } else if (shp.getLevel() < 31) {
             waveLoadingView.setWaveColor(getColor(R.color.midLev));
-
         } else {
             waveLoadingView.setWaveColor(getColor(R.color.highLev));
         }
@@ -339,7 +337,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             waveLoadingView.setAmplitudeRatio(5);
         }
 
-
         if (shp.isDarHalSharj()) {
             if (shp.getLevel() != 100) {
                 String t = shp.getTimeToFullCharge();
@@ -349,7 +346,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (t == "-") {
                     waveLoadingView.setTopTitle("در حال کاهش شارژ");
                 }
-
             } else {
                 waveLoadingView.setTopTitle("");
             }
@@ -407,7 +403,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        Log.e("CS", b + "fgfdfgdg ");
         shp.setAlarmEnabled(b);
     }
 }

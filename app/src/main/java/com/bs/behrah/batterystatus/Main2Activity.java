@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 
@@ -19,10 +20,11 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
+
         this.setFinishOnTouchOutside(false);
         this.setTitle(null);
         shp = new SharedPre(getApplicationContext());
-
         waveLoadingView = findViewById(R.id.bat_progress_wv);
 
         stop_tv = findViewById(R.id.stop_tv);
@@ -41,6 +43,8 @@ public class Main2Activity extends AppCompatActivity {
         WaveLoadingViewStatus();
 
     }
+
+
 
     private void WaveLoadingViewStatus() {
 
