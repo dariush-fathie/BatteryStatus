@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 apply plugin: 'kotlin-android'
 
@@ -7,7 +8,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "ir.unary.x"
+        applicationId "com.bs.behrah.batterystatus"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
@@ -22,6 +23,9 @@ android {
     }
 }
 
+repositories {
+    jcenter()
+}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -34,4 +38,11 @@ dependencies {
     implementation 'com.android.support:cardview-v7:27.0.2'
     compile 'ru.bullyboo.view:circleseekbar:1.0.3'
     compile 'com.google.android:flexbox:0.3.2'
+    compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
+        transitive = true
+    }
+    compile 'com.google.firebase:firebase-core:11.8.0'
+    compile 'com.getkeepsafe.taptargetview:taptargetview:1.11.0'
 }
+
+apply plugin: 'com.google.gms.google-services'

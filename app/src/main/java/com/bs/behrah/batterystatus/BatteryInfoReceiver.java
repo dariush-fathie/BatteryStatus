@@ -172,10 +172,10 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
         Intent i = new Intent(getContext(), MainActivity.class);
         pendingIntent = PendingIntent.getActivity(getContext(), 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
         n = new Notification.Builder(context)
-                .setContentTitle("Battery status")
+                .setContentTitle("شارژ کامل در ")
                 .setContentText(shp.getTimeToFullCharge())
                 .setContentIntent(pendingIntent)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_clock)
                 .setAutoCancel(false).setDeleteIntent(createOnDismissedIntent(context));
 
         notificationManager = (NotificationManager) getContext().getSystemService(NOTIFICATION_SERVICE);

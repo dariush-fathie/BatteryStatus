@@ -15,6 +15,15 @@ import android.content.SharedPreferences;
         editor1 = shp.edit();
     }
 
+    boolean isFirstTime(){
+         return shp.getBoolean("isFirstTime" , true);
+    }
+
+    void setIsFirstTime(boolean b){
+        editor1.putBoolean("isFirstTime" , b);
+        editor1.apply();
+    }
+
      boolean isDarHalSharj() {
         return shp.getBoolean("darHalSharj", false);
     }
@@ -152,7 +161,7 @@ import android.content.SharedPreferences;
 
      int getBat_Lev_val() {
 
-        return shp.getInt("bat_Lev_val", 80);
+        return shp.getInt("bat_Lev_val", 95);
     }
 
      void setBat_Lev_val(int bat_Lev_val) {

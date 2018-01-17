@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -22,6 +23,10 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import ru.bullyboo.view.CircleSeekBar;
 
@@ -42,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     boolean ft = true;
     boolean START_SEEK_BAR = false;
     boolean flag = true;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public MediaPlayer getMp() {
         return mp;
@@ -82,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.waveview);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         ABC();
         shp.setTimeToFullCharge("");
         shp.setNotificationForcedClosed(false);
@@ -92,6 +99,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.e("service", "notRunning new instance");
         }
         startReceiveUpdate();
+        showCaseView();
+    }
+
+    private void showCaseView() {
+        if (shp.isFirstTime()) {
+            TapTargetView.showFor(this,                 // `this` is an Activity
+                    TapTarget.forView(findViewById(R.id.csb2), "وقتی سطح باتری به %95 رسید خبرت می کنیم !", "   ")
+                            // All options below are optional
+                            .outerCircleColor(R.color.colorPrimaryDark)      // Specify a color for the outer circle
+                            .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
+                            .targetCircleColor(R.color.white)   // Specify a color for the target circle
+                            .titleTextSize(20)                  // Specify the size (in sp) of the title text
+                            .titleTextColor(R.color.white)      // Specify the color of the title text
+                            .descriptionTextSize(15)// Specify the size (in sp) of the description text
+                            .descriptionTextColor(R.color.white)  // Specify the color of the description text
+                            .textColor(R.color.boldtext)            // Specify a color for both the title and description text
+                            .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                            .dimColor(R.color.cardview_shadow_start_color)            // If set, will dim behind the view with 30% opacity of the given color
+                            .drawShadow(true)                   // Whether to draw a drop shadow or not
+                            .cancelable(true)                  // Whether tapping outside the outer circle dismisses the view
+                            .tintTarget(false)                   // Whether to tint the target view's color
+                            .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
+                            .targetRadius(100),                  // Specify the target radius (in dp)
+                    new TapTargetView.Listener() {          // The listener can listen for regular clicks, long clicks or cancels
+                        @Override
+                        public void onTargetClick(TapTargetView view) {
+                            super.onTargetClick(view);
+                            shp.setIsFirstTime(false);
+                        }
+
+                        @Override
+                        public void onTargetCancel(TapTargetView view) {
+                            super.onTargetCancel(view);
+                            shp.setIsFirstTime(false);
+                        }
+
+                        @Override
+                        public void onTargetDismissed(TapTargetView view, boolean userInitiated) {
+                            super.onTargetDismissed(view, userInitiated);
+                            shp.setIsFirstTime(false);
+                        }
+                    });
+        }
     }
 
     private void init() {
@@ -146,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+
         csb2.setOnValueChangedListener(new CircleSeekBar.OnValueChangedListener() {
             @Override
             public void onValueChanged(int value) {
@@ -154,10 +205,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tv_battery_percent.setText(String.valueOf("سطح هشدار :" + " % " + value));
                 if (flag) {
                     shp.setContinue_(1);
-                    flag = false ;
+                    flag = false;
                 } else {
-                    flag = true ;
+                    flag = true;
                 }
+
                 Log.e("flag", flag + "");
             }
         });
@@ -324,11 +376,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void WaveLoadingViewStatus() {
 
         if (shp.getLevel() < 16) {
-            waveLoadingView.setWaveColor(getColor(R.color.lowLev));
+            waveLoadingView.setWaveColor(ContextCompat.getColor(this, R.color.lowLev));
         } else if (shp.getLevel() < 31) {
-            waveLoadingView.setWaveColor(getColor(R.color.midLev));
+            waveLoadingView.setWaveColor(ContextCompat.getColor(this, R.color.midLev));
         } else {
-            waveLoadingView.setWaveColor(getColor(R.color.highLev));
+            waveLoadingView.setWaveColor(ContextCompat.getColor(this, R.color.highLev));
         }
 
         if (shp.isDarHalSharj()) {

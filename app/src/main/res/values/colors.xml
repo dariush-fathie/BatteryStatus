@@ -10,5 +10,5 @@
     <color name="back">#162d8f</color>
     <color name="boldtext">#ededed</color>
     <color name="text">#dcdcdc</color>
-
+    <color name="white">#ffffff</color>
 </resources>
