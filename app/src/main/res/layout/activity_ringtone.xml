@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     android:background="#ffffff">
 
-
     <RelativeLayout
         android:id="@+id/xxx"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
-        <ImageView
+
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:id="@+id/iv_ok"
@@ -32,11 +32,12 @@
             android:text="انتخاب صدا"
             android:textSize="16sp"
             android:textStyle="bold" />
+
     </RelativeLayout>
 
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.appcompat.widget.RecyclerView
         android:id="@+id/ringtone_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -53,6 +54,5 @@
         android:layout_below="@+id/xxx"
         android:background="@drawable/shadow_gradient"
         android:rotation="180" />
-
 
 </RelativeLayout>

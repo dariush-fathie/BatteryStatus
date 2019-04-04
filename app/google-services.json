@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "389924831666",
+    "firebase_url": "https://batterystatus-a93b0.firebaseio.com",
+    "project_id": "batterystatus-a93b0",
+    "storage_bucket": "batterystatus-a93b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389924831666:android:143da61741a20a84",
+        "android_client_info": {
+          "package_name": "com.bs.behrah.batterystatus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUdml43xiq4fm8nqPb77MbUDfDuFblVg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389924831666-24g79lpc3gq4a2kjd2k3dj3qsv2d1edm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -12,7 +12,6 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -56,13 +55,13 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
             if (intent.getAction().equals(StaticValues.updateAction)) {
                 ifChargeNotChanged = false;
             }
-            if (intent.getAction().equals(StaticValues.dismissAction)){
-                Log.e("action"  ,intent.getAction()+"");
+            if (intent.getAction().equals(StaticValues.dismissAction)) {
+                Log.e("action", intent.getAction() + "");
                 shp.setNotificationForcedClosed(true);
             }
             timeCalculate();
-            Log.e("Continue" , shp.getContinue_() + "");
-            Log.e("AlarmEnambled" , shp.getAlarmEnabled() + "");
+            Log.e("Continue", shp.getContinue_() + "");
+            Log.e("AlarmEnambled", shp.getAlarmEnabled() + "");
             if (shp.getContinue_() == 1 && shp.getAlarmEnabled()) {
                 if ((level == 100 || level == percent) && !getMp().isPlaying()) {
                     play();
@@ -175,7 +174,7 @@ public class BatteryInfoReceiver extends BroadcastReceiver {
                 .setContentTitle("شارژ کامل در ")
                 .setContentText(shp.getTimeToFullCharge())
                 .setContentIntent(pendingIntent)
-                .setSmallIcon(R.drawable.ic_clock)
+                //.setSmallIcon(R.drawable.ic_clock)
                 .setAutoCancel(false).setDeleteIntent(createOnDismissedIntent(context));
 
         notificationManager = (NotificationManager) getContext().getSystemService(NOTIFICATION_SERVICE);

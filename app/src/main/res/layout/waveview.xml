@@ -39,9 +39,9 @@
                 app:wlv_titleBottomSize="14sp"
                 app:wlv_titleCenterColor="@color/boldtext"
                 app:wlv_titleCenterSize="24sp"
-                app:wlv_waveAmplitude="5"
                 app:wlv_titleTopColor="#fff"
                 app:wlv_titleTopSize="13sp"
+                app:wlv_waveAmplitude="5"
                 app:wlv_waveColor="@color/highLev" />
 
 
@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/temperature_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                         android:textSize="17sp"
                         app:textAllCaps="true" />
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/temperature_tv_r"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -83,12 +83,12 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="5dp"
                     android:background="#c3ababab" />
 
                 <LinearLayout
@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/health_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
                         android:textSize="17sp"
                         app:textAllCaps="true" />
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/health_tv_r"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -123,12 +123,12 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="5dp"
                     android:background="#c3ababab" />
 
                 <LinearLayout
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/volt_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
                         android:textSize="17sp"
                         app:textAllCaps="true" />
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/volt_tv_r"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -161,7 +161,6 @@
                 </LinearLayout>
 
                 <TextView
-                    android:padding="7.5dp"
                     android:id="@+id/more_tv"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
@@ -169,6 +168,7 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/more_selctor"
                     android:gravity="center"
+                    android:padding="7.5dp"
                     android:text="بیشتر"
                     android:textColor="#fff"
                     android:textSize="15sp" />
@@ -182,10 +182,10 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="#ffffff"
-            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingStart="20dp">
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp">
 
             <TextView
                 android:id="@+id/textView"
@@ -211,7 +211,7 @@
                 android:textColor="@color/cardview_dark_background"
                 android:textSize="15sp" />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/sc_enableAlarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -233,30 +233,30 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="#ffffff"
-            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingStart="20dp">
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp">
 
 
-            <android.support.v7.widget.AppCompatTextView
-                android:padding="10dp"
-                android:background="@drawable/alarm_selector"
-                android:gravity="center"
-                android:layout_centerVertical="true"
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tone_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="پیش فرض" />
+                android:layout_centerVertical="true"
+                android:background="@drawable/alarm_selector"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="پیش فرض"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
                 android:gravity="center_vertical"
                 android:text="آهنگ هشدار"
                 android:textColor="#484747"
@@ -275,10 +275,10 @@
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="#ffffff"
-            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingStart="10dp">
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp">
 
             <ru.bullyboo.view.CircleSeekBar
                 android:id="@+id/csb1"
@@ -345,7 +345,6 @@
                         android:src="@drawable/ic_battery_charged" />
 
                     <TextView
-                        android:textAllCaps="true"
                         android:id="@+id/tv_battery_charge_percent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -353,7 +352,8 @@
                         android:layout_centerHorizontal="true"
                         android:padding="5dp"
                         android:text="92 %"
-                        android:textSize="12sp"/>
+                        android:textAllCaps="true"
+                        android:textSize="12sp" />
                 </RelativeLayout>
             </ru.bullyboo.view.CircleSeekBar>
 

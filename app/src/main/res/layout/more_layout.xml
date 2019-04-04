@@ -1,199 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <LinearLayout
-            android:padding="10dp"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:padding="8dp"
+            android:textSize="18sp"
+            android:textColor="@color/dynamicAndTitleTextColor"
+            app:fontFamily="@font/ir_sans_bold"
+            android:text="وضعیت سلامتی باتری" />
+
+        <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:padding="8dp"
+            app:alignContent="flex_start"
+            app:alignItems="flex_start"
+            app:flexDirection="row_reverse"
+            app:flexWrap="wrap">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:padding="10dp"
-                android:text="وضعیت سلامتی باتری :"
-                android:textColor="@color/cardview_dark_background" />
+                android:layout_margin="4dp"
+                android:background="@drawable/rectange_round_corner"
+                android:gravity="center"
+                android:textColor="@color/androidTextColor"
+                app:fontFamily="@font/ir_sans"
+                android:text="سرد" />
 
-            <com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:alignContent="flex_start"
-                app:alignItems="flex_start"
-                android:padding="8dp"
-                app:flexDirection="row_reverse"
-                app:flexWrap="wrap">
-
-                <TextView
-                    android:id="@+id/tv_cold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:background="@drawable/rectange_round_corner"
-                    android:gravity="center"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-
-                    android:text="سرد" />
-
-                <TextView
-                    android:id="@+id/tv_weak"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:background="@drawable/rectange_round_corner"
-                    android:gravity="center"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:text="ضعیف" />
-
-                <TextView
-                    android:id="@+id/tv_good"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_margin="3dp"
-                    android:background="@drawable/rectange_round_corner"
-                    android:gravity="center"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:text="نرمال" />
-
-                <TextView
-                    android:id="@+id/tv_over_voltage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_margin="3dp"
-                    android:background="@drawable/rectange_round_corner"
-                    android:gravity="center"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:text="ولتاژ بالا" />
-
-                <TextView
-                    android:id="@+id/tv_over_heat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_margin="3dp"
-                    android:background="@drawable/rectange_round_corner"
-                    android:gravity="center"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:text="خیلی داغ" />
-
-                <TextView
-                    android:id="@+id/tv_failure"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_margin="3dp"
-                    android:background="@drawable/rectange_round_corner"
-                    android:gravity="center"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:text="معیوب" />
-
-                <TextView
-                    android:id="@+id/tv_unknown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_margin="3dp"
-                    android:background="@drawable/rectange_round_corner"
-                    android:gravity="center"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:text="نامشخص" />
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-            <View
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#eceaeaea" />
             <TextView
+                android:id="@+id/tv_weak"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:padding="10dp"
-                android:text="ظرفیت باتری / ظرفیت پر شده:"
-                android:textColor="@color/cardview_dark_background" />
-
-            <TextView
-                android:id="@+id/tv_capacity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="10dp"
-                android:text="2600 mah / 1800mah"
-                android:textSize="18sp" />
-
-            <View
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#eceaeaea" />
-
-            <TextView
                 android:layout_margin="3dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:padding="10dp"
-                android:text="تکنولوژی ساخت : "
-                android:textColor="@color/cardview_dark_background" />
+                android:background="@drawable/rectange_round_corner"
+                android:gravity="center"
+                android:textColor="@color/androidTextColor"
+                app:fontFamily="@font/ir_sans"
+                android:text="ضعیف" />
 
             <TextView
-                android:id="@+id/tv_tech"
+                android:id="@+id/tv_good"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="10dp"
-                android:text="Li-Poly"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="40dp"
+                android:layout_margin="3dp"
+                android:background="@drawable/rectange_round_corner"
+                android:gravity="center"
+                android:textColor="@color/androidTextColor"
+                app:fontFamily="@font/ir_sans"
+                android:text="نرمال" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="50dp"/>
+            <TextView
+                android:id="@+id/tv_over_voltage"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_margin="3dp"
+                android:background="@drawable/rectange_round_corner"
+                android:gravity="center"
+                android:textColor="@color/androidTextColor"
+                app:fontFamily="@font/ir_sans"
+                android:text="ولتاژ بالا" />
 
-        </LinearLayout>
-    </ScrollView>
+            <TextView
+                android:id="@+id/tv_over_heat"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_margin="3dp"
+                android:background="@drawable/rectange_round_corner"
+                android:gravity="center"
+                android:textColor="@color/androidTextColor"
+                app:fontFamily="@font/ir_sans"
+                android:text="خیلی داغ" />
 
-</android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/tv_failure"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_margin="3dp"
+                android:background="@drawable/rectange_round_corner"
+                android:gravity="center"
+                android:textColor="@color/androidTextColor"
+                app:fontFamily="@font/ir_sans"
+                android:text="معیوب" />
+
+            <TextView
+                android:id="@+id/tv_unknown"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_margin="3dp"
+                android:background="@drawable/rectange_round_corner"
+                android:gravity="center"
+                android:textColor="@color/androidTextColor"
+                app:fontFamily="@font/ir_sans"
+                android:text="نامشخص" />
+
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:textSize="18sp"
+            android:textColor="@color/dynamicAndTitleTextColor"
+            app:fontFamily="@font/ir_sans_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="ظرفیت باتری / ظرفیت پر شده"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_capacity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:fontFamily="@font/roboto_light"
+            android:padding="16dp"
+            android:textColor="@color/title"
+            android:text="2600 mAh / 1800mAh"
+            android:textSize="18sp" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:padding="8dp"
+            android:textSize="18sp"
+            android:textColor="@color/dynamicAndTitleTextColor"
+            app:fontFamily="@font/ir_sans_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="3dp"
+            android:text="تکنولوژی ساخت : " />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            app:fontFamily="@font/roboto_light"
+            android:id="@+id/tv_tech"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="16dp"
+            android:text="Li-Poly"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+
+</ScrollView>
+
+
 

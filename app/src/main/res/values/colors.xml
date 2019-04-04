@@ -11,4 +11,11 @@
     <color name="boldtext">#ededed</color>
     <color name="text">#dcdcdc</color>
     <color name="white">#ffffff</color>
+
+    <color name="dynamicAndTitleTextColor">#3c4758</color>
+    <color name="title">#424b55</color>
+    <color name="c1">#9a9ea3</color>
+    <color name="androidTextColor">#808080</color>
+
+
 </resources>
